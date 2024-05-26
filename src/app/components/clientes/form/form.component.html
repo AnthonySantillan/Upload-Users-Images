@@ -1,0 +1,57 @@
+<ul class="alert alert-danger" *ngIf="errors?.length > 0">
+  <li *ngFor="let err of errors">
+    {{err}}
+  </li>
+</ul>
+<div class="card  bg-dark text-white">
+  <div class="card-header">
+    {{title}}
+  </div>
+  <div class="card-body">
+    <form #clienteForm="ngForm">
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6">
+          <input id="nombre" type="text" class="form-control"
+                 [(ngModel)]="cliente.nombre" name="nombre">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+        <div class="col-sm-6">
+          <input id="apellido" type="text" class="form-control"
+                 [(ngModel)]="cliente.apellido" name="apellido">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-form-label col-sm-2">Email</label>
+        <div class="col-sm-6">
+          <input id="email" type="text" class="form-control"
+                 [(ngModel)]="cliente.email" name="email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="createAt" class="col-form-label col-sm-2">Fecha</label>
+        <div class="col-sm-6">
+          <input matInput [matDatepicker]="picker" class="form-control"
+                 [(ngModel)]="cliente.createAt" name="createAt" style="display: inline; width: 300px">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-ms6">
+          <button [disabled]="!clienteForm.form.valid" class="btn btn-primary" role="button" (click)="create()" *ngIf="!cliente.id else elseBlock">
+            Crear
+          </button>
+          <ng-template #elseBlock>
+            <button [disabled]="!clienteForm.form.valid" class="btn btn-primary" role="button" (click)="update()">
+              Editar
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
